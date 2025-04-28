@@ -4,7 +4,7 @@ const db = require('./db');
 const { listProductImages } = require('./s3');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3060;
 
 // Setup EJS view engine
 app.set('view engine', 'ejs');
