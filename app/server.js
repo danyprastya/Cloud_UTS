@@ -20,7 +20,7 @@ app.get('/', async (req, res) => {
         const matchedImage = images.find(img => img.Key === product.image_key);
         return {
           ...product,
-          imageUrl: matchedImage ? `https://${process.env.S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${matchedImage.Key}` : null
+          imageUrl: matchedImage ? matchedImage.url : null
         };
       });
 

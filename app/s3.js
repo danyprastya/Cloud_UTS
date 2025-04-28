@@ -12,17 +12,20 @@ const BUCKET_NAME = process.env.AWS_S3_BUCKET;
 async function listProductImages() {
   const params = {
     Bucket: BUCKET_NAME,
-    Prefix: 'products/' // Folder produk di dalam bucket
+    Prefix: 'products/'
   };
 
   try {
     const data = await s3.listObjectsV2(params).promise();
     return data.Contents.map(item => {
-      return s3.getSignedUrl('getObject', {
-        Bucket: BUCKET_NAME,
+      return {
         Key: item.Key,
-        Expires: 3600 // 1 jam
-      });
+        url: s3.getSignedUrl('getObject', {
+          Bucket: BUCKET_NAME,
+          Key: item.Key,
+          Expires: 3600
+        })
+      };
     });
   } catch (err) {
     console.error(err);
