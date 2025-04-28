@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Produk Kami</title>
+  <title>Daftar Produk</title>
   <style>
     .cards { display: flex; flex-wrap: wrap; gap: 1rem; }
     .card { border: 1px solid #ccc; padding: 1rem; width: 200px; text-align: center; }
@@ -11,6 +11,7 @@
 </head>
 <body>
   <h1>Daftar Produk</h1>
+  <p><a href="/add">Tambah Produk Baru</a></p>
   <div class="cards">
     <% products.forEach(product => { %>
       <div class="card">
@@ -22,7 +23,6 @@
           </div>
         <% } %>
         <h2><%= product.name %></h2>
-        <!-- Perbaiki baris ini untuk memastikan harga adalah angka dan menggunakan toFixed -->
         <p>Harga: $<%= parseFloat(product.price).toFixed(2) %></p>
       </div>
     <% }) %>

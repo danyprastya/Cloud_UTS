@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tambah Produk</title>
+</head>
+<body>
+  <h1>Tambah Produk</h1>
+  <form action="/add" method="POST" enctype="multipart/form-data">
+    <div>
+      <label for="name">Nama Produk:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+      <label for="price">Harga:</label>
+      <input type="number" id="price" name="price" step="0.01" required>
+    </div>
+    <div>
+      <label for="image">Gambar:</label>
+      <input type="file" id="image" name="image" accept="image/*" required>
+    </div>
+    <button type="submit">Tambah</button>
+  </form>
+  <p><a href="/">Kembali ke Daftar Produk</a></p>
+</body>
+</html>

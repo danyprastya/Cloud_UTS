@@ -9,10 +9,10 @@ const s3 = new AWS.S3({
 
 const BUCKET = process.env.AWS_S3_BUCKET;
 
+// List semua objek di bucket (root)
 async function listProductImages() {
   try {
     const { Contents } = await s3.listObjectsV2({ Bucket: BUCKET }).promise();
-    // Format: [{ Key, url }]
     return Contents.map(item => ({
       Key: item.Key,
       url: `https://${BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${item.Key}`
@@ -23,4 +23,20 @@ async function listProductImages() {
   }
 }
 
-module.exports = { listProductImages };
+// Upload buffer ke S3 dengan nama kunci tetap original
+async function uploadProductImage(buffer, key, contentType) {
+  try {
+    await s3.putObject({
+      Bucket: BUCKET,
+      Key: key,
+      Body: buffer,
+      ContentType: contentType,
+      ACL: 'public-read'
+    }).promise();
+  } catch (err) {
+    console.error('S3 Upload Error:', err);
+    throw err;
+  }
+}
+
+module.exports = { listProductImages, uploadProductImage };
