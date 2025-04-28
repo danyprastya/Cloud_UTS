@@ -31,7 +31,6 @@ async function uploadProductImage(buffer, key, contentType) {
       Key: key,
       Body: buffer,
       ContentType: contentType,
-      ACL: 'public-read'
     }).promise();
   } catch (err) {
     console.error('S3 Upload Error:', err);
