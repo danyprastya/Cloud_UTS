@@ -12,21 +12,23 @@ app.set('views', './views');
 
 app.get('/', async (req, res) => {
     try {
-      const images = await listProductImages(); // list dari S3
-      const [products] = await db.query('SELECT * FROM products'); // dari database
+        const images = await listProductImages(); // List dari S3
+        const [products] = await db.query('SELECT * FROM products'); // Ambil produk dari DB
 
-      const productsWithImages = products.map(product => {
-        const matchedImage = images.find(img => img.Key === product.image_key);
-        return {
-          ...product,
-          imageUrl: matchedImage ? matchedImage.url : null
-        };
-      });
+        // Menggabungkan data produk dengan URL gambar dari S3
+        const productsWithImages = products.map(product => {
+            const matchedImage = images.find(img => img.Key === product.image_key);
+            return {
+                ...product,
+                imageUrl: matchedImage ? matchedImage.url : null // Sesuaikan dengan URL gambar
+            };
+        });
 
-      res.render('index', { products: productsWithImages });
+        // Kirim data produk dan gambar ke view
+        res.render('index', { products: productsWithImages });
     } catch (error) {
-      console.error(error);
-      res.status(500).send('Something went wrong');
+        console.error(error);
+        res.status(500).send('Something went wrong');
     }
 });
 

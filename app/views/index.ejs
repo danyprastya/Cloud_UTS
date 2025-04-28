@@ -7,10 +7,11 @@
 <body>
   <h1>Daftar Produk</h1>
   <div style="display: flex; flex-wrap: wrap;">
-    <% images.forEach((img, index) => { %>
-      <div style="margin: 10px;">
-        <img src="<%= img %>" alt="Product Image" width="200" />
-        <p>Harga: $<%= products[index] ? products[index].price : 'N/A' %></p>
+    <% products.forEach((product) => { %>
+      <div style="margin: 10px; border: 1px solid #ccc; padding: 10px; width: 200px; text-align: center;">
+        <img src="<%= product.imageUrl %>" alt="Product Image" width="200" />
+        <h3><%= product.name %></h3>
+        <p>Harga: $<%= product.price %></p>
       </div>
     <% }) %>
   </div>
