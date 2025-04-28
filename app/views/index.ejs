@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Produk Kami</title>
+</head>
+<body>
+  <h1>Daftar Produk</h1>
+  <div style="display: flex; flex-wrap: wrap;">
+    <% images.forEach((img, index) => { %>
+      <div style="margin: 10px;">
+        <img src="<%= img %>" alt="Product Image" width="200" />
+        <p>Harga: $<%= products[index] ? products[index].price : 'N/A' %></p>
+      </div>
+    <% }) %>
+  </div>
+</body>
+</html>
