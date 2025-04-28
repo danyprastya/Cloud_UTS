@@ -17,12 +17,14 @@ app.get('/', async (req, res) => {
 
         // Menggabungkan data produk dengan URL gambar dari S3
         const productsWithImages = products.map(product => {
-            const matchedImage = images.find(img => img.Key === product.image_key);
-            return {
-                ...product,
-                imageUrl: matchedImage ? matchedImage.url : null // Sesuaikan dengan URL gambar
-            };
-        });
+          const matchedImage = images.find(img => img.Key === product.image_key);
+          const imageUrl = matchedImage ? `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${matchedImage.Key}` : null;
+          return {
+              ...product,
+              imageUrl
+          };
+      });
+      
 
         // Kirim data produk dan gambar ke view
         res.render('index', { products: productsWithImages });
