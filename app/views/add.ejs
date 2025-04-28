@@ -3,24 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <title>Tambah Produk</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    form div {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    a {
+      display: inline-block;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      color: #4CAF50;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Tambah Produk</h1>
-  <form action="/add" method="POST" enctype="multipart/form-data">
-    <div>
-      <label for="name">Nama Produk:</label>
-      <input type="text" id="name" name="name" required>
-    </div>
-    <div>
-      <label for="price">Harga:</label>
-      <input type="number" id="price" name="price" step="0.01" required>
-    </div>
-    <div>
-      <label for="image">Gambar:</label>
-      <input type="file" id="image" name="image" accept="image/*" required>
-    </div>
-    <button type="submit">Tambah</button>
-  </form>
-  <p><a href="/">Kembali ke Daftar Produk</a></p>
+  <div class="container">
+    <h1>Tambah Produk</h1>
+    <form action="/add" method="POST" enctype="multipart/form-data">
+      <div>
+        <label for="name">Nama Produk:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="price">Harga:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+      </div>
+      <div>
+        <label for="image">Gambar:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+      </div>
+      <button type="submit">Tambah</button>
+    </form>
+    <p><a href="/">← Kembali ke Daftar Produk</a></p>
+  </div>
 </body>
 </html>
