@@ -24,5 +24,5 @@ jobs:
           cd /home/ec2-user/Cloud_UTS/app
           git pull origin main
           npm install
-          pm2 restart server || pm2 start server.js --Cloud_UTS
+          pm2 restart server || pm2 start server.js --name Cloud_UTS
           pm2 save
