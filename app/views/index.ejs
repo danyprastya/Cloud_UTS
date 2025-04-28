@@ -22,7 +22,8 @@
           </div>
         <% } %>
         <h2><%= product.name %></h2>
-        <p>Harga: $<%= product.price.toFixed(2) %></p>
+        <!-- Perbaiki baris ini untuk memastikan harga adalah angka dan menggunakan toFixed -->
+        <p>Harga: $<%= parseFloat(product.price).toFixed(2) %></p>
       </div>
     <% }) %>
   </div>
