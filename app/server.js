@@ -4,37 +4,36 @@ const db = require('./db');
 const { listProductImages } = require('./s3');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
-// Setup EJS view engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.get('/', async (req, res) => {
-    try {
-        const images = await listProductImages(); // List dari S3
-        const [products] = await db.query('SELECT * FROM products'); // Ambil produk dari DB
+  try {
+    const images = await listProductImages();
+    const [products] = await db.query('SELECT * FROM products');
+    
+    console.log('DB products:', products);
+    console.log('S3 images:', images);
 
-        // Menggabungkan data produk dengan URL gambar dari S3
-        const productsWithImages = products.map(product => {
-          const matchedImage = images.find(img => img.Key === product.image_key);
-          const imageUrl = matchedImage ? `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${matchedImage.Key}` : null;
-          return {
-              ...product,
-              imageUrl
-          };
-      });
-      
+    const productsWithImages = products.map(p => {
+      const img = images.find(i => i.Key === p.image_key);
+      return {
+        ...p,
+        imageUrl: img ? img.url : null
+      };
+    });
 
-        // Kirim data produk dan gambar ke view
-        res.render('index', { products: productsWithImages });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Something went wrong');
-    }
+    console.log('Merged:', productsWithImages);
+
+    res.render('index', { products: productsWithImages });
+  } catch (err) {
+    console.error('Route / error:', err);
+    res.status(500).send('Something went wrong');
+  }
 });
 
-// 🛠️ PENTING: listen dan bind ke 0.0.0.0
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
