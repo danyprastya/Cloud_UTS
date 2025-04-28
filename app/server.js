@@ -4,7 +4,7 @@ const db = require('./db');
 const { listProductImages } = require('./s3');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Setup EJS view engine
 app.set('view engine', 'ejs');
@@ -15,7 +15,6 @@ app.get('/', async (req, res) => {
       const images = await listProductImages(); // list dari S3
       const [products] = await db.query('SELECT * FROM products'); // dari database
 
-      // Untuk tiap product, cari gambar yang cocok dari list images
       const productsWithImages = products.map(product => {
         const matchedImage = images.find(img => img.Key === product.image_key);
         return {
@@ -30,4 +29,8 @@ app.get('/', async (req, res) => {
       res.status(500).send('Something went wrong');
     }
 });
-  
+
+// 🛠️ PENTING: listen dan bind ke 0.0.0.0
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
