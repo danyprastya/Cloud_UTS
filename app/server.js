@@ -66,9 +66,10 @@ app.post('/add', upload.single('image'), async (req, res) => {
 
     res.redirect('/');
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Gagal menambahkan produk.');
-  }
+    console.error('Error detail:', err);
+    res.status(500).send(`Gagal menambahkan produk. Error: ${err.message}`);
+}
+
 });
 
 // Start server
